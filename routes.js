@@ -1,4 +1,5 @@
 const apiAuth = require('./api_auth').apiAuth;
+const userAuth = require('./user_auth').userAuth;
 
 module.exports = (router , responses , upload) => {  
     
@@ -6,4 +7,7 @@ module.exports = (router , responses , upload) => {
     
     //Auth
     router.post('/login' ,  apiAuth.authApi, upload.array() , responses.login);    
+
+    //Contacts
+  
 }
