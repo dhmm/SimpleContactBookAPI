@@ -86,8 +86,7 @@ dbQueries.getContacts = (userId, next) => {
     });
 }
 
-dbQueries.addContact = (userId , data , next) => {
-    console.log(data);
+dbQueries.addContact = (userId , data , next) => {    
     sequelize
     .query('INSERT INTO contacts VALUES ( NULL , :userId , :surname , :name , :phone )' , 
     {
@@ -120,8 +119,7 @@ dbQueries.getContact = (userId, contactId, next) => {
 }
 
 
-dbQueries.updateContact = (userId , contactId, data , next) => {
-    console.log(data);
+dbQueries.updateContact = (userId , contactId, data , next) => {    
     sequelize
     .query('UPDATE contacts SET surname = :surname , name = :name , phone = :phone WHERE ( user_id = :userId AND contact_id = :contactId )' , 
     {
@@ -132,6 +130,21 @@ dbQueries.updateContact = (userId , contactId, data , next) => {
             surname: data.surname,
             name: data.name,
             phone: data.phone
+        }
+    })
+    .then(() =>{                
+        next();
+    });
+}
+
+dbQueries.deleteContact = (userId , contactId, next) => {    
+    sequelize
+    .query('DELETE FROM contacts WHERE ( user_id = :userId AND contact_id = :contactId )' , 
+    {
+        type: sequelize.QueryTypes.DELETE ,
+        replacements : {
+            userId: userId ,
+            contactId: contactId
         }
     })
     .then(() =>{                

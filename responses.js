@@ -91,4 +91,13 @@ responses.updateContact  = (req,res) => {
         res.end('OK');
     })
 }
+
+responses.deleteContact  = (req,res) => {
+    var userId = req.headers.userid;    
+    var contactId = req.params.contactId;
+        
+    dbQueries.deleteContact(userId  , contactId,  () => {
+        res.end('OK');
+    })
+}
 exports.responses = responses;

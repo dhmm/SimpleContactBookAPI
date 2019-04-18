@@ -18,5 +18,7 @@ module.exports = (router , responses , upload) => {
     router.get('/contacts/:userId/:contactId' , apiAuth.authApi, userAuth.authUser, responses.getContact);
     //UPDATE CONTACT
     router.put('/contacts/:contactId', apiAuth.authApi, userAuth.authUser, upload.array() , responses.updateContact);
+    //DELETE CONTACT
+    router.delete('/contacts/:contactId' , apiAuth.authApi, userAuth.authUser, responses.deleteContact);
 
 }
