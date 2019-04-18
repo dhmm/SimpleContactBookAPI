@@ -103,4 +103,19 @@ dbQueries.addContact = (userId , data , next) => {
         next(data);
     });
 }
+
+dbQueries.getContact = (userId, contactId, next) => {
+    sequelize
+    .query('SELECT * FROM contacts WHERE user_id = :userId AND contact_id = :contactId' , 
+    {
+        type: sequelize.QueryTypes.SELECT ,
+        replacements : {
+            userId: userId ,
+            contactId: contactId
+        }
+    })
+    .then((data) =>{                
+        next(data);
+    });
+}
 exports.dbQueries = dbQueries;

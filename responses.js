@@ -65,4 +65,13 @@ responses.addContact = (req,res) => {
         res.end('OK');
     });
 }
+
+responses.getContact  = (req,res) => {
+    var userId = req.headers.userid;    
+    var contactId = req.params.contactId;
+
+    dbQueries.getContact(userId  , contactId,  (data) => {
+        res.send(data);
+    })
+}
 exports.responses = responses;

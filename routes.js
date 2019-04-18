@@ -13,6 +13,8 @@ module.exports = (router , responses , upload) => {
     //GET ALL
     router.get('/contacts/:userId', apiAuth.authApi, userAuth.authUser, responses.getContacts);
     //NEW
-    router.post('/contacts', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addContact);    
+    router.post('/contacts', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addContact);   
+    
+    router.get('/contacts/:userId/:contactId' , apiAuth.authApi, userAuth.authUser, responses.getContact);
 
 }
