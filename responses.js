@@ -35,18 +35,24 @@ responses.login = (req,res) => {
         res.end('No user');        
     }    
 }
+responses.logout = (req,res) => {
+    var userId = req.headers.userid;
+    var token = req.headers.token;
+
+    dbQueries.removeToken(userId ,token , () => {
+        res.end('OK');
+    });
+}
 
 responses.getContacts  = (req,res) => {
-    var userId = req.headers.userId;    
+    var userId = req.headers.userid;    
     
     dbQueries.getContacts(userId  , (data) => {
         res.send(data);
     })
 }
 
-responses.addContact = (req,res) => {
-    console.log(req.body.surname);
-
+responses.addContact = (req,res) => {    
     var userId = req.headers.userid;
     var data = new Object ({
         userId : userId,

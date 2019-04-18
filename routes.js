@@ -5,8 +5,9 @@ module.exports = (router , responses , upload) => {
     
     router.get('/' , responses.index);
     
-    //Auth
+    //Access
     router.post('/login' ,  apiAuth.authApi, upload.array() , responses.login);    
+    router.get('/logout' ,  apiAuth.authApi, upload.array() , responses.logout); 
 
     //Contacts
     router.get('/get_contacts/:userId', apiAuth.authApi, userAuth.authUser, responses.getContacts);

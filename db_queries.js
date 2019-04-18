@@ -58,6 +58,20 @@ dbQueries.getToken = (userId , token , next) => {
         next(data);
     });
 }
+dbQueries.removeToken = (userId , token , next) => {
+    sequelize
+    .query('DELETE FROM access_tokens WHERE user_id = :userId AND token = :token' , 
+    {
+        type: sequelize.QueryTypes.DELETE ,
+        replacements : {
+            userId: userId ,
+            token: token
+        }
+    })
+    .then(() =>{                        
+        next();
+    });
+}
 dbQueries.getContacts = (userId, next) => {
     sequelize
     .query('SELECT * FROM contacts WHERE user_id = :userId' , 
