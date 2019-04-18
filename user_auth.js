@@ -8,8 +8,7 @@ userAuth.authUser = (req,res,next) => {
         var token = req.headers.token;   
 
         dbQueries.getToken(userId , token , (data) => {            
-            if(data.length == 1) {
-                console.log('ASDASDASDASD');
+            if(data.length == 1) {                
                 var details = data[0];                
                 if(details.user_id == userId && details.token == token)
                 {                    
