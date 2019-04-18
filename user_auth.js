@@ -4,7 +4,7 @@ var userAuth = () => {}
 userAuth.authUser = (req,res,next) => {   
     if(req.headers.token)
     {
-        var userId = req.params.userId;
+        var userId = req.headers.userid;
         var token = req.headers.token;   
 
         dbQueries.getToken(userId , token , (data) => {            
