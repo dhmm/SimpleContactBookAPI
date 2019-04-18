@@ -14,7 +14,9 @@ module.exports = (router , responses , upload) => {
     router.get('/contacts/:userId', apiAuth.authApi, userAuth.authUser, responses.getContacts);
     //NEW
     router.post('/contacts', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addContact);   
-    
+    //GET ONE CONTACT
     router.get('/contacts/:userId/:contactId' , apiAuth.authApi, userAuth.authUser, responses.getContact);
+    //UPDATE CONTACT
+    router.put('/contacts/:contactId', apiAuth.authApi, userAuth.authUser, upload.array() , responses.updateContact);
 
 }

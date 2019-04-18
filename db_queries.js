@@ -118,4 +118,24 @@ dbQueries.getContact = (userId, contactId, next) => {
         next(data);
     });
 }
+
+
+dbQueries.updateContact = (userId , contactId, data , next) => {
+    console.log(data);
+    sequelize
+    .query('UPDATE contacts SET surname = :surname , name = :name , phone = :phone WHERE ( user_id = :userId AND contact_id = :contactId )' , 
+    {
+        type: sequelize.QueryTypes.UPDATE ,
+        replacements : {
+            userId: userId ,
+            contactId: contactId,
+            surname: data.surname,
+            name: data.name,
+            phone: data.phone
+        }
+    })
+    .then(() =>{                
+        next();
+    });
+}
 exports.dbQueries = dbQueries;

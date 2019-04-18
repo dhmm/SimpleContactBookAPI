@@ -74,4 +74,21 @@ responses.getContact  = (req,res) => {
         res.send(data);
     })
 }
+
+responses.updateContact  = (req,res) => {
+    var userId = req.headers.userid;    
+    var contactId = req.params.contactId;
+    
+    var data = new Object ({
+        userId : userId,
+        surname : req.body.surname,
+        name : req.body.name,
+        phone : req.body.phone
+    });
+
+
+    dbQueries.updateContact(userId  , contactId,  data , () => {
+        res.end('OK');
+    })
+}
 exports.responses = responses;
