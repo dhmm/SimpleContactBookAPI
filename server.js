@@ -7,10 +7,9 @@ var upload = multer();
 const port = 8000;
 
 var responses = require('./responses').responses;
-var apiAuth = require('./api_auth').apiAuth;
 
 var router = express.Router();
-require('./routes')(router,responses , upload , apiAuth);
+require('./routes')(router,responses , upload);
 app.use(router);
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded

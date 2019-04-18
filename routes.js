@@ -1,4 +1,6 @@
-module.exports = (router , responses , upload , apiAuth) => {  
+const apiAuth = require('./api_auth').apiAuth;
+
+module.exports = (router , responses , upload) => {  
     
     router.get('/' , responses.index);
     
