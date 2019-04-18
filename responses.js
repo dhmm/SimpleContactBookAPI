@@ -37,10 +37,26 @@ responses.login = (req,res) => {
 }
 
 responses.getContacts  = (req,res) => {
-    var userId = req.params.userId;    
+    var userId = req.headers.userId;    
     
     dbQueries.getContacts(userId  , (data) => {
         res.send(data);
     })
+}
+
+responses.addContact = (req,res) => {
+    console.log(req.body.surname);
+
+    var userId = req.headers.userid;
+    var data = new Object ({
+        userId : userId,
+        surname : req.body.surname,
+        name : req.body.name,
+        phone : req.body.phone
+    });
+
+    dbQueries.addContact(userId ,data , () => {
+        res.end('OK');
+    });
 }
 exports.responses = responses;

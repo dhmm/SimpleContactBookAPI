@@ -10,4 +10,5 @@ module.exports = (router , responses , upload) => {
 
     //Contacts
     router.get('/get_contacts/:userId', apiAuth.authApi, userAuth.authUser, responses.getContacts);
+    router.put('/contact', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addContact);
 }

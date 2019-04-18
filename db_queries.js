@@ -71,4 +71,22 @@ dbQueries.getContacts = (userId, next) => {
         next(data);
     });
 }
+
+dbQueries.addContact = (userId , data , next) => {
+    console.log(data);
+    sequelize
+    .query('INSERT INTO contacts VALUES ( NULL , :userId , :surname , :name , :phone )' , 
+    {
+        type: sequelize.QueryTypes.INSERT ,
+        replacements : {
+            userId: userId ,
+            surname: data.surname,
+            name: data.name,
+            phone: data.phone
+        }
+    })
+    .then((data) =>{                
+        next(data);
+    });
+}
 exports.dbQueries = dbQueries;
