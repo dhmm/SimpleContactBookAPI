@@ -9,5 +9,5 @@ module.exports = (router , responses , upload) => {
     router.post('/login' ,  apiAuth.authApi, upload.array() , responses.login);    
 
     //Contacts
-  
+    router.get('/get_contacts/:userId', apiAuth.authApi, userAuth.authUser, responses.getContacts);
 }

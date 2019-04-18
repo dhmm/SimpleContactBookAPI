@@ -1,16 +1,30 @@
+var dbQueries = require('./db_queries').dbQueries;
 var userAuth = () => {}
 
-userAuth.authUser = (req,res,next) => {
-    console.log('user auth');
-
-    if(req.headers['token'])
+userAuth.authUser = (req,res,next) => {   
+    if(req.headers.token)
     {
-        if(req.headers['token'] == '1a8b7aba718b103a8d3485225fba36e8664d8efaaf18d2358742efeb7f15b649b8482b68bfd94ba16413282991b9afc9')
-        {
-            next(); 
-            return;                      
-        }
-    }    
-    res.send('Token not set or wrong');    
+        var userId = req.params.userId;
+        var token = req.headers.token;   
+
+        dbQueries.getToken(userId , token , (data) => {            
+            if(data.length == 1) {
+                console.log('ASDASDASDASD');
+                var details = data[0];                
+                if(details.user_id == userId && details.token == token)
+                {                    
+                    next();
+                    return;                    
+                }              
+            }              
+            res.end('Token not set or wrong');
+            return;                        
+        });        
+    } 
+    else 
+    {
+        res.end('Token not set or wrong');    
+    }
+
 }
 exports.userAuth = userAuth;

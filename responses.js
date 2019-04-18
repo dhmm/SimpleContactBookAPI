@@ -36,5 +36,11 @@ responses.login = (req,res) => {
     }    
 }
 
-
+responses.getContacts  = (req,res) => {
+    var userId = req.params.userId;    
+    
+    dbQueries.getContacts(userId  , (data) => {
+        res.send(data);
+    })
+}
 exports.responses = responses;

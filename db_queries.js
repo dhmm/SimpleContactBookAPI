@@ -44,6 +44,31 @@ dbQueries.createToken = (userId , token , next) => {
         next();
     })    
 }
-
-
+dbQueries.getToken = (userId , token , next) => {
+    sequelize
+    .query('SELECT * FROM access_tokens WHERE user_id = :userId AND token = :token' , 
+    {
+        type: sequelize.QueryTypes.SELECT ,
+        replacements : {
+            userId: userId ,
+            token: token
+        }
+    })
+    .then((data) =>{                        
+        next(data);
+    });
+}
+dbQueries.getContacts = (userId, next) => {
+    sequelize
+    .query('SELECT * FROM contacts WHERE user_id = :userId' , 
+    {
+        type: sequelize.QueryTypes.SELECT ,
+        replacements : {
+            userId: userId
+        }
+    })
+    .then((data) =>{                
+        next(data);
+    });
+}
 exports.dbQueries = dbQueries;
