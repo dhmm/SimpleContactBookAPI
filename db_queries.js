@@ -31,5 +31,18 @@ dbQueries.getUser = (userName, password , next) => {
         next(data);
     });
 }
+dbQueries.createToken = (userId , token , next) => {
+    sequelize
+    .query('INSERT INTO access_tokens VALUES ( :userId , :token )' , {
+        type: sequelize.QueryTypes.INSERT ,
+        replacements : {
+            userId : userId,
+            token : token
+        }   
+    })
+    .then( () => {
+        next();
+    })    
+}
 
 exports.dbQueries = dbQueries;

@@ -1,4 +1,5 @@
 var dbQueries = require('./db_queries').dbQueries;
+var tokenizer = require('./tokenizer').tokenizer;
 
 var responses = () => { }
 
@@ -13,8 +14,13 @@ responses.login = (req,res) => {
         dbQueries.getUser(userName,password, 
             (users) => 
             {
-                if(users.length == 1) {                    
-                    res.end('Hello '+ users[0].username); 
+                if(users.length == 1) {                   
+                    tokenizer.getToken((token) => { 
+                            dbQueries.createToken(users[0].user_id , token , () => {
+                                res.end('Hello '+ users[0].username+' -> '+token); 
+                            });
+                        }
+                    );
                     return; 
                 }
                 else
