@@ -10,6 +10,9 @@ module.exports = (router , responses , upload) => {
     router.get('/logout' ,  apiAuth.authApi, upload.array() , responses.logout); 
 
     //Contacts
-    router.get('/get_contacts/:userId', apiAuth.authApi, userAuth.authUser, responses.getContacts);
-    router.put('/contact', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addContact);
+    //GET ALL
+    router.get('/contacts/:userId', apiAuth.authApi, userAuth.authUser, responses.getContacts);
+    //NEW
+    router.post('/contacts', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addContact);    
+
 }
