@@ -1,4 +1,5 @@
 var dbQueries = require('./db_queries').dbQueries;
+var response = require('./response').response;
 var userAuth = () => {}
 
 userAuth.authUser = (req,res,next) => {   
@@ -16,13 +17,14 @@ userAuth.authUser = (req,res,next) => {
                     return;                    
                 }              
             }              
-            res.end('Token not set or wrong');
+            res.end(response(true,'Token not set or wrong',null));
+            
             return;                        
         });        
     } 
     else 
     {
-        res.end('Token not set or wrong');    
+        res.end(response(true,'Token not set or wrong',null));   
     }
 
 }

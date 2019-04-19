@@ -1,23 +1,30 @@
 var dbQueries = require('./db_queries').dbQueries;
 var tokenizer = require('./tokenizer').tokenizer;
+var response = require('./response').response;
 
 var responses = () => { }
+
 
 responses.index = (req,res) => {    
     res.send('API is up and running');
 }
-responses.login = (req,res) => {
+responses.login = (req,res) => {        
     if(req.body.user && req.body.password)
-    {
+    {       
         var userName = req.body.user;
         var password = req.body.password;
         dbQueries.getUser(userName,password, 
             (users) => 
-            {
+            {                
                 if(users.length == 1) {                   
                     tokenizer.getToken((token) => { 
-                            dbQueries.createToken(users[0].user_id , token , () => {
-                                res.end('Hello '+ users[0].username+' -> '+token); 
+                            dbQueries.createToken(users[0].user_id , token , (userId , token) => {
+                                var data = 
+                                {
+                                    userId : userId,
+                                    token : token
+                                }                                
+                                res.end(response(false,'Hello user '+userName,  data )); 
                             });
                         }
                     );
@@ -25,14 +32,14 @@ responses.login = (req,res) => {
                 }
                 else
                 {
-                    res.end('Wrong user');
+                    res.end(response(true,'Wrong user',null));
                 }
             }            
         );                                                  
     }
     else
     {
-        res.end('No user');        
+        res.end(response(true,'No user',null));        
     }    
 }
 responses.logout = (req,res) => {
@@ -40,7 +47,7 @@ responses.logout = (req,res) => {
     var token = req.headers.token;
 
     dbQueries.removeToken(userId ,token , () => {
-        res.end('OK');
+        res.end(response(true,'Logged out',null));        
     });
 }
 

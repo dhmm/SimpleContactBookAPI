@@ -41,7 +41,7 @@ dbQueries.createToken = (userId , token , next) => {
         }   
     })
     .then( () => {
-        next();
+        next(userId,token);
     })    
 }
 dbQueries.getToken = (userId , token , next) => {

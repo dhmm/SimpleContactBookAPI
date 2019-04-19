@@ -1,3 +1,5 @@
+var response = require('./response').response;
+
 var apiAuth = () => {}
 
 apiAuth.authApi = (req,res , next) => {
@@ -9,7 +11,7 @@ apiAuth.authApi = (req,res , next) => {
             return;                      
         }
     }    
-    res.send('API key not set or wrong');        
+    res.end(response(true,'API key not set or wrong',null));         
 }
 
 exports.apiAuth = apiAuth;
