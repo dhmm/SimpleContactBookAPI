@@ -45,9 +45,8 @@ responses.login = (req,res) => {
 responses.logout = (req,res) => {
     var userId = req.headers.userid;
     var token = req.headers.token;
-
     dbQueries.removeToken(userId ,token , () => {
-        res.end(response(true,'Logged out',null));        
+        res.end(response(false,'Logged out',null));        
     });
 }
 
