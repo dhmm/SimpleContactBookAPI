@@ -17,14 +17,17 @@ responses.login = (req,res) => {
             (users) => 
             {                
                 if(users.length == 1) {                   
-                    tokenizer.getToken((token) => { 
-                            dbQueries.createToken(users[0].user_id , token , (userId , token) => {
-                                var data = 
-                                {
-                                    userId : userId,
-                                    token : token
-                                }                                
-                                res.end(response(false,'Hello user '+userName,  data )); 
+                    tokenizer.getToken((token) => {
+                            dbQueries.clearPreviousTokens(users[0].user_id , token , (userId, nextToken) => {                                 
+                                dbQueries.createToken(users[0].user_id , token , (userId , token) => {
+                                    var data = 
+                                    {
+                                        userId : userId,
+                                        token : token
+                                    }                                
+                                    res.end(response(false,'Hello user '+userName,  data )); 
+                                    return;
+                                }); 
                             });
                         }
                     );
@@ -72,7 +75,7 @@ responses.addContact = (req,res) => {
     });
 
     dbQueries.addContact(userId ,data , () => {
-        res.end('OK');
+        res.end(response(false, 'OK' , null));
     });
 }
 

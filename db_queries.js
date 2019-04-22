@@ -44,6 +44,19 @@ dbQueries.createToken = (userId , token , next) => {
         next(userId,token);
     })    
 }
+dbQueries.clearPreviousTokens = (userId, nextToken, next) => {
+    sequelize
+    .query('DELETE FROM access_tokens WHERE user_id = :userId' , 
+    {
+        type: sequelize.QueryTypes.DELETE ,
+        replacements : {
+            userId: userId
+        }
+    })
+    .then(() =>{                        
+        next(userId,nextToken);
+    });    
+}
 dbQueries.getToken = (userId , token , next) => {
     sequelize
     .query('SELECT * FROM access_tokens WHERE user_id = :userId AND token = :token' , 
