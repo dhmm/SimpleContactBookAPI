@@ -50,11 +50,15 @@ responses.logout = (req,res) => {
     });
 }
 
-responses.getContacts  = (req,res) => {
-    var userId = req.headers.userid;    
+responses.getContacts  = (req,res) => {        
+    var userId = req.params.userId;    
     
     dbQueries.getContacts(userId  , (data) => {
-        res.send(data);
+        var contacts = 
+        {
+            contacts : data
+        }
+        res.end(response(false, 'OK' , contacts));
     })
 }
 

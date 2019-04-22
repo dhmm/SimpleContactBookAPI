@@ -6,7 +6,7 @@ userAuth.authUser = (req,res,next) => {
     if(req.headers.token)
     {
         var userId = req.headers.userid;
-        var token = req.headers.token;   
+        var token = req.headers.token;           
 
         dbQueries.getToken(userId , token , (data) => {            
             if(data.length == 1) {                
