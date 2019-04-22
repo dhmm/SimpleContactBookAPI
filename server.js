@@ -1,10 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer();
 
 const port = 8000;
+
+app.use(cors());
 
 var responses = require('./responses').responses;
 
