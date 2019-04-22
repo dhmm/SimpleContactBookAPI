@@ -110,7 +110,7 @@ responses.deleteContact  = (req,res) => {
     var contactId = req.params.contactId;
         
     dbQueries.deleteContact(userId  , contactId,  () => {
-        res.end('OK');
+        res.end(response(false, 'OK' , null));
     })
 }
 exports.responses = responses;
