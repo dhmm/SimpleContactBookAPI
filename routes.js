@@ -23,4 +23,10 @@ module.exports = (router , responses , upload) => {
     //DELETE CONTACT
     router.delete('/contacts/:contactId' , apiAuth.authApi, userAuth.authUser, responses.deleteContact);
 
+    //Users
+    //GET ALL
+    router.get('/users' ,  apiAuth.authApi, userAuth.authUser, responses.getUsers);
+    //NEW
+    router.post('/users', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addUser);  
+
 }

@@ -178,4 +178,31 @@ dbQueries.deleteContact = (userId , contactId, next) => {
         next();
     });
 }
+
+dbQueries.getUsers = (next) => {
+    sequelize
+    .query('SELECT * FROM users' , 
+    {
+        type: sequelize.QueryTypes.SELECT
+    })
+    .then((data) =>{                
+        next(data);
+    });
+}
+
+dbQueries.addUser = (data , next) => {    
+    sequelize
+    .query('INSERT INTO users VALUES ( NULL , :username , :password , :admin )' , 
+    {
+        type: sequelize.QueryTypes.INSERT ,
+        replacements : {
+            username: data.username,
+            password: data.password,
+            admin: data.admin
+        }
+    })
+    .then((data) =>{                
+        next(data);
+    });
+}
 exports.dbQueries = dbQueries;

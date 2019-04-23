@@ -124,4 +124,26 @@ responses.deleteContact  = (req,res) => {
         res.end(response(false, 'OK' , null));
     })
 }
+
+responses.getUsers = (req,res) => {        
+        
+    dbQueries.getUsers((data) => {
+        var users = 
+        {
+            users : data
+        }
+        res.end(response(false, 'OK' , users));
+    })
+}
+responses.addUser = (req,res) => {        
+    var data = new Object ({
+        username : req.body.username,
+        password : req.body.password,
+        admin : req.body.admin
+    });
+
+    dbQueries.addUser(data , () => {
+        res.end(response(false, 'OK' , null));
+    });
+}
 exports.responses = responses;
