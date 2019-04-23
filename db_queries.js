@@ -99,6 +99,20 @@ dbQueries.getContacts = (userId, next) => {
     });
 }
 
+dbQueries.getContactsWithSearchKeyword = (userId, searchKeyword, next) => {
+    sequelize
+    .query('SELECT * FROM contacts WHERE user_id = :userId and ( surname like \'%'+searchKeyword+'%\' OR name like \'%'+searchKeyword+'%\' OR phone like \'%'+searchKeyword+'%\' ) ' , 
+    {
+        type: sequelize.QueryTypes.SELECT ,
+        replacements : {
+            userId: userId
+        }
+    })
+    .then((data) =>{                
+        next(data);
+    });
+}
+
 dbQueries.addContact = (userId , data , next) => {    
     sequelize
     .query('INSERT INTO contacts VALUES ( NULL , :userId , :surname , :name , :phone )' , 

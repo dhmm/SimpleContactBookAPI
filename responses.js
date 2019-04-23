@@ -64,7 +64,18 @@ responses.getContacts  = (req,res) => {
         res.end(response(false, 'OK' , contacts));
     })
 }
+responses.getContactsWithSearchKeyword  = (req,res) => {        
+    var userId = req.params.userId;    
+    var searchKeyword = req.params.searchKeyword;
 
+    dbQueries.getContactsWithSearchKeyword(userId  , searchKeyword, (data) => {
+        var contacts = 
+        {
+            contacts : data
+        }
+        res.end(response(false, 'OK' , contacts));
+    })
+}
 responses.addContact = (req,res) => {    
     var userId = req.headers.userid;
     var data = new Object ({
