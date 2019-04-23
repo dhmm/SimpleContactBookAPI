@@ -149,9 +149,8 @@ responses.addUser = (req,res) => {
 responses.deleteUser  = (req,res) => {
     var userId = req.headers.userid;
     var userToDeleteId = req.params.userToDeleteId;  
-    
     if(userId!=userToDeleteId) {  
-        dbQueries.Queries.getContacts(userToDeleteId , (data) => {
+        dbQueries.getContacts(userToDeleteId , (data) => {
             if(data.length == 0) {
                 dbQueries.deleteUser(userToDeleteId,  () => {
                     res.end(response(false, 'OK' , null));
