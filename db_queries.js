@@ -31,7 +31,7 @@ dbQueries.getUser = (userName, password , next) => {
         next(data);
     });
 }
-dbQueries.createToken = (userId , token , next) => {
+dbQueries.createToken = (userId , isAdmin , token , next) => {
     sequelize
     .query('INSERT INTO access_tokens VALUES ( :userId , :token )' , {
         type: sequelize.QueryTypes.INSERT ,
@@ -41,10 +41,10 @@ dbQueries.createToken = (userId , token , next) => {
         }   
     })
     .then( () => {
-        next(userId,token);
+        next(userId,isAdmin, token);
     })    
 }
-dbQueries.clearPreviousTokens = (userId, nextToken, next) => {
+dbQueries.clearPreviousTokens = (userId, isAdmin, nextToken, next) => {
     sequelize
     .query('DELETE FROM access_tokens WHERE user_id = :userId' , 
     {
@@ -54,7 +54,7 @@ dbQueries.clearPreviousTokens = (userId, nextToken, next) => {
         }
     })
     .then(() =>{                        
-        next(userId,nextToken);
+        next(userId,isAdmin,nextToken);
     });    
 }
 dbQueries.getToken = (userId , token , next) => {

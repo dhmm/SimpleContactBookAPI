@@ -18,11 +18,12 @@ responses.login = (req,res) => {
             {                
                 if(users.length == 1) {                   
                     tokenizer.getToken((token) => {
-                            dbQueries.clearPreviousTokens(users[0].user_id , token , (userId, nextToken) => {                                 
-                                dbQueries.createToken(users[0].user_id , token , (userId , token) => {
+                            dbQueries.clearPreviousTokens(users[0].user_id , users[0].is_admin,  token , (userId, isAdmin , nextToken) => {                                 
+                                dbQueries.createToken(userId ,users[0].is_admin, nextToken , (userId , isAdmin, token) => {
                                     var data = 
                                     {
                                         userId : userId,
+                                        isAdmin : isAdmin,
                                         token : token
                                     }                                
                                     res.end(response(false,'Hello user '+userName,  data )); 
