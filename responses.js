@@ -84,7 +84,7 @@ responses.getContact  = (req,res) => {
     var contactId = req.params.contactId;
 
     dbQueries.getContact(userId  , contactId,  (data) => {
-        res.send(data);
+        res.end(response(false, 'OK' , data));
     })
 }
 
@@ -101,7 +101,7 @@ responses.updateContact  = (req,res) => {
 
 
     dbQueries.updateContact(userId  , contactId,  data , () => {
-        res.end('OK');
+        res.end(response(false, 'OK' , null));
     })
 }
 
