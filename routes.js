@@ -13,7 +13,7 @@ module.exports = (router , responses , upload) => {
     //GET ALL
     router.get('/contacts/:userId', apiAuth.authApi, userAuth.authUser, responses.getContacts);
     //GET WITH SEARCH
-    router.get('/contacts/:userId/:searchKeyword', apiAuth.authApi, userAuth.authUser, responses.getContactsWithSearchKeyword);
+    router.post('/contacts/:userId/:searchKeyword', apiAuth.authApi, userAuth.authUser, responses.getContactsWithSearchKeyword);
     //NEW
     router.post('/contacts', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addContact);   
     //GET ONE CONTACT
