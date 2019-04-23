@@ -28,5 +28,11 @@ module.exports = (router , responses , upload) => {
     router.get('/users' ,  apiAuth.authApi, userAuth.authUser, responses.getUsers);
     //NEW
     router.post('/users', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addUser);  
+    //DELETE USER
+    router.delete('/users/:userToDeleteId' , apiAuth.authApi, userAuth.authUser, responses.deleteUser);
+    //GET ONE USER
+    router.get('/users/:userForEditId' , apiAuth.authApi, userAuth.authUser, responses.getUserForEditing);
+    //UPDATE CONTACT
+    router.put('/users/:userForEditId', apiAuth.authApi, userAuth.authUser, upload.array() , responses.updateUser);
 
 }

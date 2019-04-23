@@ -205,4 +205,49 @@ dbQueries.addUser = (data , next) => {
         next(data);
     });
 }
+
+dbQueries.deleteUser= (userToDeleteId , next) => {    
+    sequelize
+    .query('DELETE FROM users WHERE ( user_id = :userToDeleteId )' , 
+    {
+        type: sequelize.QueryTypes.DELETE ,
+        replacements : {
+            userToDeleteId: userToDeleteId 
+        }
+    })
+    .then(() =>{                
+        next();
+    });
+}
+
+dbQueries.getUserForEditing = (userForEditId, next) => {
+    sequelize
+    .query('SELECT * FROM users WHERE user_id = :userId' , 
+    {
+        type: sequelize.QueryTypes.SELECT ,
+        replacements : {
+            userId: userForEditId
+        }
+    })
+    .then((data) =>{                
+        next(data);
+    });
+}
+
+dbQueries.updateUser = (userForEditId , data , next) => {    
+    sequelize
+    .query('UPDATE users SET username = :username , password = :password , is_admin = :admin WHERE ( user_id = :userId  )' , 
+    {
+        type: sequelize.QueryTypes.UPDATE ,
+        replacements : {
+            userId: userForEditId ,
+            username: data.username,
+            password: data.password,
+            admin: data.admin
+        }
+    })
+    .then(() =>{                
+        next();
+    });
+}
 exports.dbQueries = dbQueries;

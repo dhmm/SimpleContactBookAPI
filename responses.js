@@ -146,4 +146,44 @@ responses.addUser = (req,res) => {
         res.end(response(false, 'OK' , null));
     });
 }
+responses.deleteUser  = (req,res) => {
+    var userId = req.headers.userid;
+    var userToDeleteId = req.params.userToDeleteId;  
+    
+    if(userId!=userToDeleteId) {  
+        dbQueries.Queries.getContacts(userToDeleteId , (data) => {
+            if(data.length == 0) {
+                dbQueries.deleteUser(userToDeleteId,  () => {
+                    res.end(response(false, 'OK' , null));
+                }); 
+            }
+            else {
+                res.end(response(true, 'This user has contacts. You cannot delete' , null));
+            }
+        });      
+    } else {
+        res.end(response(true, 'You cannot delete yourself' , null));
+    }
+}
+responses.getUserForEditing  = (req,res) => {  
+    var userForEditId = req.params.userForEditId;
+
+    dbQueries.getUserForEditing(userForEditId ,  (data) => {
+        res.end(response(false, 'OK' , data));
+    })
+}
+responses.updateUser  = (req,res) => {
+    var userForEditId = req.params.userForEditId;
+    
+    var data = new Object ({
+        username : req.body.username,
+        password : req.body.password,
+        admin : req.body.admin
+    });
+
+
+    dbQueries.updateUser(userForEditId ,  data , () => {
+        res.end(response(false, 'OK' , null));
+    })
+}
 exports.responses = responses;
