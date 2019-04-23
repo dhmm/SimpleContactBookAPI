@@ -76,6 +76,7 @@ responses.getContactsWithSearchKeyword  = (req,res) => {
         res.end(response(false, 'OK' , contacts));
     })
 }
+
 responses.addContact = (req,res) => {    
     var userId = req.headers.userid;
     var data = new Object ({
@@ -128,6 +129,17 @@ responses.deleteContact  = (req,res) => {
 responses.getUsers = (req,res) => {        
         
     dbQueries.getUsers((data) => {
+        var users = 
+        {
+            users : data
+        }
+        res.end(response(false, 'OK' , users));
+    })
+}
+responses.getUsersWithSearchKeyword  = (req,res) => {          
+    var searchKeyword = req.params.searchKeyword;
+
+    dbQueries.getUsersWithSearchKeyword(searchKeyword, (data) => {
         var users = 
         {
             users : data

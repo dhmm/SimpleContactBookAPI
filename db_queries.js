@@ -189,7 +189,16 @@ dbQueries.getUsers = (next) => {
         next(data);
     });
 }
-
+dbQueries.getUsersWithSearchKeyword = (searchKeyword, next) => {
+    sequelize
+    .query('SELECT * FROM users WHERE ( username like \'%'+searchKeyword+'%\' OR password like \'%'+searchKeyword+'%\' OR is_admin like \'%'+searchKeyword+'%\' ) ' , 
+    {
+        type: sequelize.QueryTypes.SELECT
+    })
+    .then((data) =>{                
+        next(data);
+    });
+}
 dbQueries.addUser = (data , next) => {    
     sequelize
     .query('INSERT INTO users VALUES ( NULL , :username , :password , :admin )' , 

@@ -26,6 +26,8 @@ module.exports = (router , responses , upload) => {
     //Users
     //GET ALL
     router.get('/users' ,  apiAuth.authApi, userAuth.authUser, responses.getUsers);
+    //GET WITH SEARCH
+    router.post('/users/:searchKeyword', apiAuth.authApi, userAuth.authUser, responses.getUsersWithSearchKeyword);
     //NEW
     router.post('/users', apiAuth.authApi, userAuth.authUser,  upload.array() , responses.addUser);  
     //DELETE USER
